@@ -178,6 +178,7 @@ const config: HardhatUserConfig = {
       // // Emerald
       emeraldTestnet: process.env.BLOCK_EXPLORER_API_KEY,
       // emeraldMainnet: process.env.BLOCK_EXPLORER_API_KEY,
+      emeraldMainnet: process.env.BLOCK_EXPLORER_API_KEY,
     },
     customChains: [
       {
@@ -186,6 +187,14 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: "https://testnet.explorer.emerald.oasis.dev/api",
           browserURL: "https://testnet.explorer.emerald.oasis.dev",
+        },
+      },
+      {
+        network: "emeraldMainnet",
+        chainId: 42262,
+        urls: {
+          apiURL: "https://explorer.emerald.oasis.dev/api",
+          browserURL: "https://explorer.emerald.oasis.dev",
         },
       },
     ],
