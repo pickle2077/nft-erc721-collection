@@ -6,8 +6,9 @@ import 'erc721a/contracts/extensions/ERC721AQueryable.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/utils/cryptography/MerkleProof.sol';
 import '@openzeppelin/contracts/security/ReentrancyGuard.sol';
+import '@openzeppelin/contracts/token/common/ERC2981.sol';
 
-contract CustomName is ERC721AQueryable, Ownable, ReentrancyGuard {
+contract CustomName is ERC721AQueryable, ERC2981, Ownable, ReentrancyGuard {
 
   using Strings for uint256;
 
@@ -22,9 +23,14 @@ contract CustomName is ERC721AQueryable, Ownable, ReentrancyGuard {
   uint256 public maxSupply;
   uint256 public maxMintAmountPerTx;
 
+  uint96 public feeNumerator = 500;
+
   bool public paused = true;
   bool public whitelistMintEnabled = false;
   bool public revealed = false;
+
+  address public royaltyReceiver = 0x74BDF046024CDF112F1d881526e6F05d278D35a0;
+
 
   constructor(
     string memory _tokenName,
@@ -38,6 +44,7 @@ contract CustomName is ERC721AQueryable, Ownable, ReentrancyGuard {
     maxSupply = _maxSupply;
     setMaxMintAmountPerTx(_maxMintAmountPerTx);
     setHiddenMetadataUri(_hiddenMetadataUri);
+    _setDefaultRoyalty(royaltyReceiver, feeNumerator);
   }
 
   modifier mintCompliance(uint256 _mintAmount) {
@@ -50,6 +57,21 @@ contract CustomName is ERC721AQueryable, Ownable, ReentrancyGuard {
     require(msg.value >= cost * _mintAmount, 'Insufficient funds!');
     _;
   }
+
+ function supportsInterface(
+    bytes4 interfaceId
+  ) public view virtual override(ERC721A, ERC2981) returns (bool) {
+      // Supports the following `interfaceId`s:
+      // - IERC165: 0x01ffc9a7
+      // - IERC721: 0x80ac58cd
+      // - IERC721Metadata: 0x5b5e139f
+      // - IERC2981: 0x2a55205a
+      return 
+          ERC721A.supportsInterface(interfaceId) || 
+          ERC2981.supportsInterface(interfaceId);
+  }
+
+
 
   function whitelistMint(uint256 _mintAmount, bytes32[] calldata _merkleProof) public payable mintCompliance(_mintAmount) mintPriceCompliance(_mintAmount) {
     // Verify whitelist requirements

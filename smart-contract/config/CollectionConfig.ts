@@ -41,8 +41,10 @@ const CollectionConfig: CollectionConfigInterface = {
     price: 0.009,
     maxMintAmountPerTx: 5,
   },
-  // contractAddress: "0x7B74d4d14C86CF67158525f7022797ee5Cb1E7e8",
-  contractAddress: "0xb1954d22fe872B26bd8dE7af0D50De9838586C37",
+  // contractAddress: "0x7B74d4d14C86CF67158525f7022797ee5Cb1E7e8", // Goerli testnet contract
+  // contractAddress: "0xad1aAd24Fe2Aa76d1a302aCBCbf89b0775A101aF" // Emerald testnet contract
+  // contractAddress: "0xb1954d22fe872B26bd8dE7af0D50De9838586C37", // Emerald mainnet contract
+  contractAddress: "0xB17f8F3a6F1f83cb5105ebc40CbB223852393439", //Emerald testnet royalty
   marketplaceIdentifier: "my-nft-token",
   marketplaceConfig: Marketplaces.openSea, // change openSea to other one from Marketplaces
   whitelistAddresses,
