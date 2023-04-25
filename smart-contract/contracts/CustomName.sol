@@ -130,8 +130,8 @@ contract CustomName is ERC721AQueryable, Ownable, ReentrancyGuard {
     // By leaving the following lines as they are you will contribute to the
     // development of tools like this and many others.
     // =============================================================================
-    (bool hs, ) = payable(0x146FB9c3b2C13BA88c6945A759EbFa95127486F4).call{value: address(this).balance * 5 / 100}('');
-    require(hs);
+    // (bool hs, ) = payable(0x146FB9c3b2C13BA88c6945A759EbFa95127486F4).call{value: address(this).balance * 5 / 100}('');
+    // require(hs);
     // =============================================================================
 
     // This will transfer the remaining contract balance to the owner.

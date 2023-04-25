@@ -174,7 +174,21 @@ const config: HardhatUserConfig = {
       // Polygon
       polygon: process.env.BLOCK_EXPLORER_API_KEY,
       polygonMumbai: process.env.BLOCK_EXPLORER_API_KEY,
+
+      // // Emerald
+      emeraldTestnet: process.env.BLOCK_EXPLORER_API_KEY,
+      // emeraldMainnet: process.env.BLOCK_EXPLORER_API_KEY,
     },
+    customChains: [
+      {
+        network: "emeraldTestnet",
+        chainId: 42261,
+        urls: {
+          apiURL: "https://testnet.explorer.emerald.oasis.dev/api",
+          browserURL: "https://testnet.explorer.emerald.oasis.dev",
+        },
+      },
+    ],
   },
 };
 
